@@ -1,0 +1,13 @@
+# VS Code
+.vscode/
+
+# Cpp
+*.exe
+*.app
+*.o
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
