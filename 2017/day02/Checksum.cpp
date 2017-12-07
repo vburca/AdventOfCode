@@ -49,6 +49,8 @@ int part1(string filename)
         checksum += (max - min);
     }
 
+    infile.close();
+
     return checksum;
 }
 
@@ -97,6 +99,8 @@ int part2(string filename)
 
         checksum += get_division(&ns);
     }
+
+    infile.close();
 
     return checksum;
 }
