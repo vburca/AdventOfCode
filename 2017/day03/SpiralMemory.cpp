@@ -36,8 +36,8 @@ int part2(string filename)
 
 int main(int argc, char* argv[])
 {
-    cout << part1(argv[1]) << endl;
-    cout << part2(argv[1]) << endl;
+    // cout << part1(argv[1]) << endl;
+    // cout << part2(argv[1]) << endl;
 
     return 0;
 }
