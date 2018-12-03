@@ -22,17 +22,17 @@ struct key_hash : public unary_function<key_coord, size_t>
     }
 };
 
-struct key_equal : public binary_function<key_coord, key_coord, bool>
-{
-    bool operator()(const key_coord& k1, const key_coord& k2) const
-    {
-        return k1 == k2;
-    }
-};
+// struct key_equal : public binary_function<key_coord, key_coord, bool>
+// {
+//     bool operator()(const key_coord& k1, const key_coord& k2) const
+//     {
+//         return k1 == k2;
+//     }
+// };
 
 void part1(istream& inputFile)
 {
-    unordered_map<const key_coord, int, key_hash, key_equal> usedSqInches;
+    unordered_map<const key_coord, int, key_hash> usedSqInches;
     regex claimRegex("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)[\\r\\n]*");
     smatch claimMatch;
 
@@ -104,7 +104,7 @@ void part1(istream& inputFile)
 
 void part2(istream& inputFile)
 {
-    unordered_map<const key_coord, int, key_hash, key_equal> usedSqInches;
+    unordered_map<const key_coord, int, key_hash> usedSqInches;
     vector<string> inputs;
     regex claimRegex("#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)[\\r\\n]*");
     smatch claimMatch;
