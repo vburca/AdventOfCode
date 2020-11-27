@@ -6,13 +6,12 @@ using namespace std;
 
 void part1(istream& inputFile)
 {
-    int mass;
-    int totalFuel = 0;
+    uint32_t mass;
+    uint32_t totalFuel = 0;
 
     while (!inputFile.eof())
     {
         inputFile >> mass;
-
         totalFuel += floor(mass / 3) - 2;
     }
 
@@ -21,19 +20,19 @@ void part1(istream& inputFile)
 
 void part2(istream& inputFile)
 {
-    int mass;
-    int totalFuel = 0;
+    uint32_t mass;
+    uint32_t totalFuel = 0;
 
     while (!inputFile.eof())
     {
         inputFile >> mass;
 
-        int fuelToFuel = floor(mass / 3) - 2;
-        mass = floor(fuelToFuel / 3) - 2;
-        while (mass > 0)
+        uint32_t fuelToFuel = 0;
+        int32_t requiredFuel = floor(mass / 3) - 2;
+        while (requiredFuel > 0)
         {
-            fuelToFuel += mass;
-            mass = floor(mass / 3) - 2;
+            fuelToFuel += requiredFuel;
+            requiredFuel = floor(requiredFuel / 3) - 2;
         }
 
         totalFuel += fuelToFuel;
@@ -41,7 +40,6 @@ void part2(istream& inputFile)
 
     cout << totalFuel << endl;
 }
-
 
 int main(int argc, char **argv)
 {
