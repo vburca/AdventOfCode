@@ -11,20 +11,14 @@ typedef vector<int> memory_t;
 
 // overload the stream input operator to read comma separated integers from each line of an input file
 // into a vector of integers
-istream& operator >> (istream& ins, memory_t& data)
+istream &operator>>(istream &ins, memory_t &data)
 {
     // clear the output first
     data.clear();
 
-    // read one line from the file
-    string line;
-    getline(ins, line);
-
     // separate the integers from the commas
-    stringstream ss(line);
     string sVal;
-
-    while (getline(ss, sVal, ','))
+    while (getline(ins, sVal, ','))
     {
         // we convert each string value from the comma separated values into an integer
         stringstream intAsString(sVal);
@@ -40,7 +34,7 @@ istream& operator >> (istream& ins, memory_t& data)
     return ins;
 }
 
-void printMemory(const memory_t& memory)
+void printMemory(const memory_t &memory)
 {
     for (int i = 0; i < memory.size(); i++)
     {
@@ -50,14 +44,18 @@ void printMemory(const memory_t& memory)
     cout << endl;
 }
 
-void part1(istream& inputFile)
+void part1(istream &inputFile)
 {
     while (!inputFile.eof())
     {
+        // read one line from the file
         string line;
-        memory_t memory;
+        getline(inputFile, line);
+        stringstream ss(line);
 
-        inputFile >> memory;
+        // separate the integers from the commas
+        memory_t memory;
+        ss >> memory;
 
         // set memory to "1202 program alarm"
         memory[1] = 12;
@@ -72,11 +70,18 @@ void part1(istream& inputFile)
 
             switch (memory[i])
             {
-                case 1: memory[memory[i + 3]] = a + b; break;
-                case 2: memory[memory[i + 3]] = a * b; break;
-                default: break;
+            case 1:
+                memory[memory[i + 3]] = a + b;
+                break;
+            case 2:
+                memory[memory[i + 3]] = a * b;
+                break;
+            default:
+                cout << "Unknown OPCODE: " << memory[i] << endl;
+                break;
             }
 
+            // advance to next opcode
             i += 4;
         }
 
@@ -85,14 +90,18 @@ void part1(istream& inputFile)
     }
 }
 
-void part2(istream& inputFile)
+void part2(istream &inputFile)
 {
     while (!inputFile.eof())
     {
+        // read one line from the file
         string line;
-        memory_t memory;
+        getline(inputFile, line);
+        stringstream ss(line);
 
-        inputFile >> memory;
+        // separate the integers from the commas
+        memory_t memory;
+        ss >> memory;
 
         int noun = 0;
         int verb = 0;
@@ -120,9 +129,14 @@ void part2(istream& inputFile)
 
                     switch (memoryCopy[i])
                     {
-                        case 1: memoryCopy[memoryCopy[i + 3]] = a + b; break;
-                        case 2: memoryCopy[memoryCopy[i + 3]] = a * b; break;
-                        default: break;
+                    case 1:
+                        memoryCopy[memoryCopy[i + 3]] = a + b;
+                        break;
+                    case 2:
+                        memoryCopy[memoryCopy[i + 3]] = a * b;
+                        break;
+                    default:
+                        break;
                     }
 
                     i += 4;
@@ -137,8 +151,8 @@ void part2(istream& inputFile)
 
         // printMemory(memory);
         cout << 100 * noun + verb << endl;
-    }}
-
+    }
+}
 
 int main(int argc, char **argv)
 {
