@@ -19,9 +19,9 @@ void printMatrix(const vector<vector<size_t>>& matrix)
 {
     cout << "Print matrix ( " << matrix.size() << ", " << matrix[0].size() << " ) " << endl;
 
-    for (auto& row : matrix)
+    for (const auto& row : matrix)
     {
-        for (auto& e : row)
+        for (const auto& e : row)
         {
             cout << e << " ";
         }
@@ -41,11 +41,11 @@ size_t BFS(const vector<vector<size_t>>& adjMatrix, const size_t startNodeId, un
 
     while (!nodeIdsToVisit.empty())
     {
-        auto nodeAndCount = nodeIdsToVisit.front();
+        const auto nodeAndCount = nodeIdsToVisit.front();
         nodeIdsToVisit.pop();
 
-        size_t nodeId = nodeAndCount.first;
-        size_t currentBagCount = nodeAndCount.second;
+        const auto nodeId = nodeAndCount.first;
+        const auto currentBagCount = nodeAndCount.second;
 
         visited.insert(nodeId);
         if (nodeId != startNodeId)
@@ -199,7 +199,7 @@ void part1(unordered_map<string, size_t>& nodeToId, const vector<vector<size_t>>
 {
     // now we have adjacency lists and matrices for the graph of bag colors
     // we can start BFS-ing from the shiny gold bag color node
-    size_t interestedNodeId = nodeToId[INTERESTED_BAG_COLOR];
+    const auto interestedNodeId = nodeToId[INTERESTED_BAG_COLOR];
     unordered_set<size_t> visitedNodeIds;
     BFS(adjMatrix_T, interestedNodeId, visitedNodeIds);
 
@@ -210,7 +210,7 @@ void part2(unordered_map<string, size_t>& nodeToId, const vector<vector<size_t>>
 {
     // now we have adjacency lists and matrices for the graph of bag colors
     // we can start BFS-ing from the shiny gold bag color node
-    size_t interestedNodeId = nodeToId[INTERESTED_BAG_COLOR];
+    const auto interestedNodeId = nodeToId[INTERESTED_BAG_COLOR];
     unordered_set<size_t> visitedNodeIds;
     size_t numberOfBagsContained = BFS(adjMatrix, interestedNodeId, visitedNodeIds);
 
