@@ -4,6 +4,7 @@
 #include <utility>
 #include <vector>
 #include <unordered_map>
+#include <optional>
 
 using namespace std;
 
@@ -12,7 +13,7 @@ using namespace std;
 
 void part1(istream& inputFile)
 {
-    unordered_map<uint32_t, pair<size_t, size_t>> numsToAge;
+    vector<optional<pair<size_t, size_t>>> numsToAge(TARGET_EPOCH_PART1, nullopt);
     size_t epoch = 1;
     uint32_t lastNum = 0;
     while (!inputFile.eof())
@@ -38,7 +39,7 @@ void part1(istream& inputFile)
     uint32_t currentNum = 0;
     while (epoch <= TARGET_EPOCH_PART1)
     {
-        if (numsToAge.find(lastNum) == numsToAge.end())
+        if (!numsToAge[lastNum].has_value())
         {
             // this is the first time the last number was said so we need to say 0
             currentNum = 0;
@@ -46,17 +47,17 @@ void part1(istream& inputFile)
         else
         {
             // the previous number was previously said, so say its age
-            currentNum = numsToAge[lastNum].second - numsToAge[lastNum].first;
+            currentNum = numsToAge[lastNum].value().second - numsToAge[lastNum].value().first;
         }
 
         // add the current number and calculate its age
-        if (numsToAge.find(currentNum) == numsToAge.end())
+        if (!numsToAge[currentNum].has_value())
         {
             numsToAge[currentNum] = pair(epoch, epoch);
         }
         else
         {
-            auto [first, second] = numsToAge[currentNum];
+            auto [first, second] = numsToAge[currentNum].value();
             numsToAge[currentNum] = pair(second, epoch);
         }
 
@@ -69,7 +70,7 @@ void part1(istream& inputFile)
 
 void part2(istream& inputFile)
 {
-    unordered_map<uint32_t, pair<size_t, size_t>> numsToAge;
+    vector<optional<pair<size_t, size_t>>> numsToAge(TARGET_EPOCH_PART2, nullopt);
     size_t epoch = 1;
     uint32_t lastNum = 0;
     while (!inputFile.eof())
@@ -95,7 +96,7 @@ void part2(istream& inputFile)
     uint32_t currentNum = 0;
     while (epoch <= TARGET_EPOCH_PART2)
     {
-        if (numsToAge.find(lastNum) == numsToAge.end())
+        if (!numsToAge[lastNum].has_value())
         {
             // this is the first time the last number was said so we need to say 0
             currentNum = 0;
@@ -103,17 +104,17 @@ void part2(istream& inputFile)
         else
         {
             // the previous number was previously said, so say its age
-            currentNum = numsToAge[lastNum].second - numsToAge[lastNum].first;
+            currentNum = numsToAge[lastNum].value().second - numsToAge[lastNum].value().first;
         }
 
         // add the current number and calculate its age
-        if (numsToAge.find(currentNum) == numsToAge.end())
+        if (!numsToAge[currentNum].has_value())
         {
             numsToAge[currentNum] = pair(epoch, epoch);
         }
         else
         {
-            auto [first, second] = numsToAge[currentNum];
+            auto [first, second] = numsToAge[currentNum].value();
             numsToAge[currentNum] = pair(second, epoch);
         }
 
