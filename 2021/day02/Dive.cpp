@@ -90,7 +90,6 @@ void part2(istream& inputFile)
         {
             cout << "Regex failed for line: [" << line << "]" << endl;
         }
-
     }
 
     size_t result = horizontalPos * depthPos;
