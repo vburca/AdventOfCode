@@ -136,7 +136,7 @@ void part2(istream& inputFile)
     const auto co2RatingId = getCandidateId(diagnostic, true);
 
     const auto oxygenRatingBitset = diagnostic[oxygenRatingId];
-    const auto co2RatingBitset = diagnostic[co2RatingId];;
+    const auto co2RatingBitset = diagnostic[co2RatingId];
 
     const size_t oxygenRating = accumulate(oxygenRatingBitset.begin(), oxygenRatingBitset.end(), 0, [](const int x, const int y) { return (x << 1) + y; });
     const size_t co2Rating = accumulate(co2RatingBitset.begin(), co2RatingBitset.end(), 0, [](const int x, const int y) { return (x << 1) + y; });
