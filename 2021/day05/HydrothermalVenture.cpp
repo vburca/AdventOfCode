@@ -198,13 +198,13 @@ void part2(istream& inputFile)
         {
             cout << "Regex failed for line: [" << line << "]" << endl;
         }
-
     }
 
     // printMap(overlappedPositions);
 
     const size_t badOverlaps = scanPositions(overlappedPositions, BAD_OVERLAP_THRESH);
-    cout << badOverlaps << endl;}
+    cout << badOverlaps << endl;
+}
 
 int main(int argc, char **argv)
 {
