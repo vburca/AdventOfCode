@@ -124,7 +124,8 @@ void part2(istream& inputFile)
         totalFish += getNumAncestors(fishTimer, kMaxDays, timerToAncestors);
     }
 
-    cout << totalFish << endl;}
+    cout << totalFish << endl;
+}
 
 int main(int argc, char **argv)
 {
