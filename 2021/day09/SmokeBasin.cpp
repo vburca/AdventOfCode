@@ -161,8 +161,6 @@ void part2(istream& inputFile)
             if (bottom <= curr) continue;
             if (left <= curr) continue;
 
-            // it means no neighbors is greater or equal, hence this is a low point
-            // add its risk level
             basinSizes.push_back(computeBasinSize({row, col}, heightMap));
         }
     }
