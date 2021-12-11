@@ -11,8 +11,10 @@ using namespace std;
 #define CAVE_SIZE_TEST 5
 #define CAVE_SIZE CAVE_SIZE_RUN
 
-#define NUM_ITER_PART_1 100
+#define NUM_ITER_RUN 100
 #define NUM_ITER_TEST 2
+#define NUM_ITER NUM_ITER_RUN
+
 #define MAX_ENERGY_LEVEL 9
 
 typedef pair<uint8_t, uint8_t> position_t;
@@ -184,7 +186,7 @@ void part1(istream& inputFile)
         row += 1;
     }
 
-    const auto numFlashes = runCaveIllumination(caveMap, NUM_ITER_PART_1);
+    const auto numFlashes = runCaveIllumination(caveMap, NUM_ITER);
     cout << numFlashes << endl;
 }
 
