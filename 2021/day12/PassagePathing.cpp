@@ -208,7 +208,8 @@ void part2(istream& inputFile)
     }
 
     const auto numPaths = getNumPaths(neighborMap, true);
-    cout << numPaths << endl;}
+    cout << numPaths << endl;
+}
 
 
 int main(int argc, char **argv)
