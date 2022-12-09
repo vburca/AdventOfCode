@@ -6,6 +6,12 @@
 #include <queue>
 #include <unordered_set>
 #include <functional>
+#include <chrono>
+
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+using std::chrono::duration;
+using std::chrono::milliseconds;
 
 using namespace std;
 
@@ -65,8 +71,7 @@ struct WeightFuncPart2
         const auto tileRow = point.first % tileHeight;
         const auto tileCol = point.second % tileWidth;
 
-        const auto rawWeight = weightTile[tileRow][tileCol] + rowOffset + colOffset;
-        const auto weight = rawWeight < 10 ? rawWeight : (rawWeight % 10 + 1);
+        const auto weight = (weightTile[tileRow][tileCol] + rowOffset + colOffset - 1) % 9 + 1;
         return weight;
     }
 };
@@ -94,7 +99,6 @@ const size_t getShortestPathCost(
     const weight_func_t& getWeightFunc)
 {
     matrix_t distances(kMapHeight, vector<size_t>(kMapWidth, SIZE_MAX));
-    vector<vector<optional<point_t>>> previous(kMapHeight, vector<optional<point_t>>(kMapWidth, nullopt));
 
     point_priority_queue_t priorityPointsQueue;
     point_set_t visitedPoints;
@@ -102,20 +106,36 @@ const size_t getShortestPathCost(
     // set distance of start point to 0
     distances[startPoint.first][startPoint.second] = 0;
 
-    for (size_t i = 0; i < kMapHeight; ++i)
-    {
-        for (size_t j = 0; j < kMapWidth; ++j)
-        {
-            priorityPointsQueue.push({{i, j}, distances[i][j]});
-        }
-    }
+    auto initializationsT1 = high_resolution_clock::now();
 
-    while (!priorityPointsQueue.empty())
+    priorityPointsQueue.push({startPoint, distances[startPoint.first][startPoint.second]});
+
+    auto initializationsT2 = high_resolution_clock::now();
+
+    const auto initializationsDuration = duration<double, milli>(initializationsT2 - initializationsT1);
+    cout << "Initializations: " << initializationsDuration.count() << endl;
+
+    auto whileLoopT1 = high_resolution_clock::now();
+    bool foundEnd = false;
+    size_t countNodes = 0;
+    while (!foundEnd && !priorityPointsQueue.empty())
     {
         const auto currentWeightedPoint = priorityPointsQueue.top();
         const auto currentPoint = currentWeightedPoint.first;
         priorityPointsQueue.pop();
 
+        if (currentPoint == endPoint)
+        {
+            foundEnd = true;
+            break;
+        }
+
+        if (visitedPoints.find(currentPoint) != visitedPoints.end())
+        {
+            continue; // we already found the shortest path to that point
+        }
+
+        countNodes += 1;
         visitedPoints.insert(currentPoint);
 
         const auto neighbors = getNeighbors(currentPoint, kMapHeight, kMapWidth);
@@ -132,12 +152,17 @@ const size_t getShortestPathCost(
             if (distance < startToNeighborDistance)
             {
                 startToNeighborDistance = distance;
-                previous[neighbor.first][neighbor.second] = currentPoint;
-
                 priorityPointsQueue.push({neighbor, distance});
             }
         }
     }
+    auto whileLoopT2 = high_resolution_clock::now();
+
+    cout << "Visited points: " << visitedPoints.size() << endl;
+    cout << "Count nodes: " << countNodes << endl;
+
+    const auto whileLoopDuration = duration<double, milli>(whileLoopT2 - whileLoopT1);
+    cout << "While Loop: " << whileLoopDuration.count() << endl;
 
     const auto shortestPathCost = distances[endPoint.first][endPoint.second];
     return shortestPathCost;
