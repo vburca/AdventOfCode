@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <numeric>
 #include <string>
+#include <cstdint>
 
 using namespace std;
 

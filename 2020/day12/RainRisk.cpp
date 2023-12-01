@@ -4,6 +4,7 @@
 #include <math.h>
 #include <vector>
 #include <utility>
+#include <cstdint>
 
 using namespace std;
 

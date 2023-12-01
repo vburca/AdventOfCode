@@ -4,6 +4,7 @@
 #include <deque>
 #include <unordered_set>
 #include <utility>
+#include <cstdint>
 
 using namespace std;
 

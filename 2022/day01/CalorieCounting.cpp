@@ -3,6 +3,7 @@
 #include <string>
 #include <queue>
 #include <sstream>
+#include <cstdint>
 
 using namespace std;
 

@@ -5,6 +5,7 @@
 #include <cmath>
 #include <string>
 #include <unordered_map>
+#include <cstdint>
 
 using namespace std;
 

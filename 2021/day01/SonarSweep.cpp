@@ -3,6 +3,7 @@
 #include <cmath>
 #include <deque>
 #include <numeric>
+#include <cstdint>
 
 using namespace std;
 
