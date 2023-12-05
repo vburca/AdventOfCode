@@ -68,7 +68,7 @@ static inline std::vector<size_t> parseDelimSeparatedNumbers( const std::string 
         if (trimmedNumber.size() == 0) {
             continue;
         }
-        numbers.push_back(stoi(trimmedNumber));
+        numbers.push_back(stoul(trimmedNumber));
     }
 
     return numbers;
