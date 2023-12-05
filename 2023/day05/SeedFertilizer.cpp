@@ -243,14 +243,14 @@ vector<Interval> getMappedIntervals(const vector<Interval> &srcIntervals, const 
             prevIt--;
             if (srcInterval.start <= prevIt->second.srcEnd) {
                 it = prevIt;
-            // } else if (it == dstMapping.end()) {
-            //     // we are at the end of the intervals, add the full source interval and move on
-            //     mappedIntervals.push_back({
-            //         .start = srcInterval.start,
-            //         .end = srcInterval.end,
-            //     });
+            } else if (it == dstMapping.end()) {
+                // we are at the end of the intervals, add the full source interval and move on
+                mappedIntervals.push_back({
+                    .start = srcInterval.start,
+                    .end = srcInterval.end,
+                });
 
-            //     continue;
+                continue;
             } else {
                 mappedIntervals.push_back({
                     .start = srcInterval.start,
