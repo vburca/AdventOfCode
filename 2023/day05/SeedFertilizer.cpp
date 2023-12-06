@@ -390,9 +390,6 @@ int main(int argc, char **argv) {
     std::cout << "Part 1: " << endl;
     part1(mappings);
 
-    inputFile.clear();
-    inputFile.seekg(0, ios::beg);
-
     std::cout << "Part 2: " << endl;
     part2(mappings);
 
