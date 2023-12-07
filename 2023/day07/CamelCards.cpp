@@ -132,7 +132,7 @@ vector<Hand> _parseInput(istream& inputFile) {
     return hands;
 }
 
-HandType _computeHandType(const Hand &hand, optional<char> jokerReplacement = nullopt) {
+HandType _computeHandTypeLegacy(const Hand &hand, optional<char> jokerReplacement = nullopt) {
     array<size_t, kDeckSize> cardCount { 0 };
 
     for (const auto c : hand.cards) {
@@ -141,6 +141,69 @@ HandType _computeHandType(const Hand &hand, optional<char> jokerReplacement = nu
             card = *jokerReplacement;
         }
         cardCount[cardRanking.at(card)] += 1;
+    }
+
+    size_t threeCount = 0;
+    size_t twoCount = 0;
+    for (const auto count : cardCount) {
+        if (count == 5) {
+            return FiveOfKind;
+        } else if (count == 4) {
+            return FourOfKind;
+        } else if (count == 3) {
+            threeCount += 1;
+        } else if (count == 2) {
+            twoCount += 1;
+        }
+    }
+
+    if (threeCount == 1 && twoCount == 1) {
+        return FullHouse;
+    } else if (threeCount == 1) {
+        return ThreeOfKind;
+    }
+
+    if (twoCount == 2) {
+        return TwoPair;
+    }
+
+    if (twoCount == 1) {
+        return OnePair;
+    }
+
+    return HighCard;
+}
+
+HandType _computeHandType(const Hand &hand, bool replaceJoker = false) {
+    array<size_t, kDeckSize> cardCount { 0 };
+
+    for (const auto c : hand.cards) {
+        cardCount[cardRanking.at(c)] += 1;
+    }
+
+    const auto jokerCount = cardCount[cardRanking.at(kJokerCard)];
+    if (replaceJoker && jokerCount > 0) {
+        size_t maxCount = 0;
+        for (size_t i = 0; i < cardCount.size(); i++) {
+            if (i == cardRanking.at(kJokerCard)) {
+                continue;
+            }
+
+            maxCount = max(maxCount, cardCount[i]);
+        }
+
+        // it doesn't matter to which we assign here, custom comparator will deal with it later
+        for (size_t i = 0; i < cardCount.size() && maxCount > 0; i++) {
+            if (i == cardRanking.at(kJokerCard)) {
+                continue;
+            }
+
+            if (cardCount[i] == maxCount) {
+                cardCount[i] += jokerCount;
+                cardCount[cardRanking.at(kJokerCard)] = 0;
+                break;
+            }
+        }
     }
 
     size_t threeCount = 0;
@@ -194,11 +257,11 @@ void part1(const vector<Hand> &hands) {
     cout << totalWinnings << endl;
 }
 
-void part2(const vector<Hand> &hands) {
+void part2Legacy(const vector<Hand> &hands) {
     map<HandType, set<Hand, HandComparatorJoker>> typeToHands;
 
     for (const auto &hand : hands) {
-        HandType strongestType = _computeHandType(hand);
+        HandType strongestType = _computeHandTypeLegacy(hand);
         if (hand.cards.contains(kJokerCard) && strongestType < FiveOfKind) {
             for (const auto card : cardLabels) {
                 if (card == kJokerCard) {
@@ -208,7 +271,7 @@ void part2(const vector<Hand> &hands) {
                 Hand shapeshiftHand = hand;
                 replace(shapeshiftHand.cards.begin(), shapeshiftHand.cards.end(), kJokerCard, card);
 
-                const auto type = _computeHandType(shapeshiftHand);
+                const auto type = _computeHandTypeLegacy(shapeshiftHand);
                 if (type > strongestType) {
                     strongestType = type;
                     if (strongestType == FiveOfKind) {
@@ -224,15 +287,40 @@ void part2(const vector<Hand> &hands) {
     int64_t totalWinnings = 0;
     size_t rank = 1;
     for (const auto &p : typeToHands) {
+        // cout << "Type: " << p.first << endl;
         for (const auto &hand : p.second) {
+            // cout << hand.cards << " -> " << rank << endl;
             totalWinnings += rank * hand.bid;
             rank += 1;
         }
+        // cout << endl;
     }
 
     cout << totalWinnings << endl;
 }
 
+void part2(const vector<Hand> &hands) {
+    map<HandType, set<Hand, HandComparatorJoker>> typeToHands;
+
+    for (const auto &hand : hands) {
+        const auto type = _computeHandType(hand, true);
+        typeToHands[type].insert(hand);
+    }
+
+    int64_t totalWinnings = 0;
+    size_t rank = 1;
+    for (const auto &p : typeToHands) {
+        // cout << "Type: " << p.first << endl;
+        for (const auto &hand : p.second) {
+            // cout << hand.cards << " -> " << rank << endl;
+            totalWinnings += rank * hand.bid;
+            rank += 1;
+        }
+        // cout << endl;
+    }
+
+    cout << totalWinnings << endl;
+}
 
 int main(int argc, char **argv) {
     if (argc <= 1) {
@@ -249,7 +337,7 @@ int main(int argc, char **argv) {
     part1(hands);
 
     std::cout << "Part 2: " << endl;
-    part2(hands);
+    part2Legacy(hands);
 
     inputFile.close();
 
