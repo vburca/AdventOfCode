@@ -1,5 +1,5 @@
 #include "../../util/StringUtil.h"
-#include "../../util/NumbersUtil.h"
+#include "../../util/MathUtil.h"
 
 #include <iostream>
 #include <fstream>
@@ -95,8 +95,8 @@ void part2(const vector<RaceRecord> &records) {
     size_t t = records[0].time;
     size_t d = records[0].distance;
     for (size_t i = 1; i < records.size(); i++) {
-        t = t * pow(10, aoc::util::numbers::getNumberOfDigits(records[i].time)) + records[i].time;
-        d = d * pow(10, aoc::util::numbers::getNumberOfDigits(records[i].distance)) + records[i].distance;
+        t = t * pow(10, aoc::util::math::getNumberOfDigits(records[i].time)) + records[i].time;
+        d = d * pow(10, aoc::util::math::getNumberOfDigits(records[i].distance)) + records[i].distance;
     }
 
     const auto solutions = _getSolutions(t, d);

@@ -3,10 +3,15 @@
 #include <locale>
 #include <vector>
 #include <sstream>
+#include <numeric>
+#include <cstdint>
+#include <functional>
+
+#include <iostream>
 
 namespace aoc {
 namespace util {
-namespace numbers {
+namespace math {
 
 static inline size_t getNumberOfDigits(const size_t n) {
     size_t nn = n;
@@ -19,7 +24,13 @@ static inline size_t getNumberOfDigits(const size_t n) {
     return numDigits;
 }
 
+template <typename M>
+constexpr auto lcm(std::vector<M> &v) {
+    return std::accumulate(v.begin(), v.end(), 1ull, [](const auto &a, const auto &b) {
+        return std::lcm(a, b);
+    });
+}
 
-}  // namespace string
+}  // namespace math
 }  // namespace util
 }  // namespace aoc
