@@ -337,7 +337,7 @@ int main(int argc, char **argv) {
     part1(hands);
 
     std::cout << "Part 2: " << endl;
-    part2Legacy(hands);
+    part2(hands);
 
     inputFile.close();
 
