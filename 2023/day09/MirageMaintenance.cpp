@@ -7,16 +7,8 @@
 #include <sstream>
 #include <cstdint>
 #include <vector>
-#include <regex>
-#include <map>
-#include <array>
-#include <queue>
-#include <set>
-#include <optional>
 
 using namespace std;
-
-regex MAP_RX("([A-Z0-9]+) = \\(([A-Z0-9]+), ([A-Z0-9]+)\\)");
 
 struct Input {
     vector<vector<int64_t>> histories;
