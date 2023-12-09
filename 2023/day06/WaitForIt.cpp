@@ -38,7 +38,7 @@ const vector<RaceRecord> parseInput(istream& inputFile) {
         exit(1);
     }
 
-    vector<size_t> times = aoc::util::string::parseDelimSeparatedNumbers(aoc::util::string::trimCopy(timeMatch[1].str()), ' ');
+    vector<size_t> times = aoc::util::string::parseDelimSeparatedNumbers<size_t>(aoc::util::string::trimCopy(timeMatch[1].str()), ' ');
 
     string distanceLine;
     getline(inputFile, distanceLine);
@@ -48,7 +48,7 @@ const vector<RaceRecord> parseInput(istream& inputFile) {
         exit(1);
     }
 
-    vector<size_t> distances = aoc::util::string::parseDelimSeparatedNumbers(aoc::util::string::trimCopy(distanceMatch[1].str()), ' ');
+    vector<size_t> distances = aoc::util::string::parseDelimSeparatedNumbers<size_t>(aoc::util::string::trimCopy(distanceMatch[1].str()), ' ');
 
     assert(times.size() == distances.size() && "Times and Distances not equal");
     for (size_t i = 0; i < times.size(); i++) {

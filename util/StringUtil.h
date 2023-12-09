@@ -58,8 +58,9 @@ static inline std::vector<std::string> split(const std::string &s, const char de
     return separatedWords;
 }
 
-static inline std::vector<size_t> parseDelimSeparatedNumbers(const std::string &s, const char delim) {
-    std::vector<size_t> numbers;
+template <typename T>
+static inline std::vector<T> parseDelimSeparatedNumbers(const std::string &s, const char delim) {
+    std::vector<T> numbers;
 
     std::istringstream ss(s);
     std::string token;
@@ -68,7 +69,7 @@ static inline std::vector<size_t> parseDelimSeparatedNumbers(const std::string &
         if (trimmedNumber.size() == 0) {
             continue;
         }
-        numbers.push_back(stoul(trimmedNumber));
+        numbers.push_back(static_cast<T>(stoll(trimmedNumber)));
     }
 
     return numbers;

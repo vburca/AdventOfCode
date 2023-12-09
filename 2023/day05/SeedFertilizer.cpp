@@ -139,7 +139,7 @@ map_id_info_t& parseMappings(istream& inputFile, map_id_info_t &mapping) {
             break;
         }
 
-        const auto mapValues = aoc::util::string::parseDelimSeparatedNumbers(line, ' ');
+        const auto mapValues = aoc::util::string::parseDelimSeparatedNumbers<size_t>(line, ' ');
         if (mapValues.size() != 3) {
             std::cout << "Mapping not formatted properly: { " << line << " }" << endl;
             exit(1);
@@ -180,7 +180,7 @@ const Mappings parseInput(istream& inputFile) {
 
         smatch seedsMatch;
         if (regex_match(line, seedsMatch, SEEDS_RX)) {
-            mappings.seedIds = aoc::util::string::parseDelimSeparatedNumbers(seedsMatch[1].str(), ' ');
+            mappings.seedIds = aoc::util::string::parseDelimSeparatedNumbers<size_t>(seedsMatch[1].str(), ' ');
             continue;
         }
 

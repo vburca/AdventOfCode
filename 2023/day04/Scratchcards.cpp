@@ -46,8 +46,8 @@ optional<CardInformation> parseCardLine(const string &cardLine) {
     const auto winningNumbersStr = aoc::util::string::trimCopy(numberLists[0]);
     const auto ourNumbersStr = aoc::util::string::trimCopy(numberLists[1]);
 
-    const auto winningNumbers = aoc::util::string::parseDelimSeparatedNumbers(winningNumbersStr, ' ');
-    const auto ourNumbers = aoc::util::string::parseDelimSeparatedNumbers(ourNumbersStr, ' ');
+    const auto winningNumbers = aoc::util::string::parseDelimSeparatedNumbers<size_t>(winningNumbersStr, ' ');
+    const auto ourNumbers = aoc::util::string::parseDelimSeparatedNumbers<size_t>(ourNumbersStr, ' ');
 
     return CardInformation {
         .id = cardId - 1,
