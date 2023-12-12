@@ -186,7 +186,7 @@ int main(int argc, char **argv) {
     ifstream inputFile(argv[1]);
 
     const auto input = _parseInput(inputFile);
-    _printInput(input);
+    // _printInput(input);
 
     std::cout << "Part 1: " << endl;
     part1(input);
