@@ -38,7 +38,7 @@ struct PositionData {
 
 struct BFSOutput {
     set<coord_t> visitedCoords;
-    set<PositionData> visitedEdgeExitPositions;
+    set<coord_t> visitedEdgeExitCoords;
 };
 
 struct Input {
@@ -193,7 +193,7 @@ BFSOutput _bfs(const PositionData &startPosition, const Input &input) {
         const auto potentialNextPositions = _getNextPositions(currentPosition, input);
         for (const auto &potentialNextPosition : potentialNextPositions) {
             if (!_isValidCoord(potentialNextPosition.coord, input)) {
-                output.visitedEdgeExitPositions.insert(currentPosition);
+                output.visitedEdgeExitCoords.insert(currentPosition.coord);
                 continue;
             }
 
@@ -217,7 +217,7 @@ void part1(const Input &input) {
 }
 
 void part2(const Input &input) {
-    set<PositionData> visitedEdgeExitPositions;
+    set<coord_t> visitedEdgeExitCoords;
 
     size_t maxEnergizedTiles = 0;
     for (size_t i = 0; i < input.nRows; i++) {
@@ -226,10 +226,10 @@ void part2(const Input &input) {
             .dir = East,
         };
 
-        if (!visitedEdgeExitPositions.contains(startPositionToEast)) {
+        if (!visitedEdgeExitCoords.contains(startPositionToEast.coord)) {
             auto energizeOutput = _bfs(startPositionToEast, input);
             maxEnergizedTiles = max(maxEnergizedTiles, energizeOutput.visitedCoords.size());
-            visitedEdgeExitPositions.merge(energizeOutput.visitedEdgeExitPositions);
+            visitedEdgeExitCoords.merge(energizeOutput.visitedEdgeExitCoords);
         }
 
         const PositionData startPositionToWest = {
@@ -237,10 +237,10 @@ void part2(const Input &input) {
             .dir = West,
         };
 
-        if (!visitedEdgeExitPositions.contains(startPositionToWest)) {
+        if (!visitedEdgeExitCoords.contains(startPositionToWest.coord)) {
             auto energizeOutput = _bfs(startPositionToWest, input);
             maxEnergizedTiles = max(maxEnergizedTiles, energizeOutput.visitedCoords.size());
-            visitedEdgeExitPositions.merge(energizeOutput.visitedEdgeExitPositions);
+            visitedEdgeExitCoords.merge(energizeOutput.visitedEdgeExitCoords);
         }
     }
 
@@ -250,10 +250,10 @@ void part2(const Input &input) {
             .dir = South,
         };
 
-        if (!visitedEdgeExitPositions.contains(startPositionToSouth)) {
+        if (!visitedEdgeExitCoords.contains(startPositionToSouth.coord)) {
             auto energizeOutput = _bfs(startPositionToSouth, input);
             maxEnergizedTiles = max(maxEnergizedTiles, energizeOutput.visitedCoords.size());
-            visitedEdgeExitPositions.merge(energizeOutput.visitedEdgeExitPositions);
+            visitedEdgeExitCoords.merge(energizeOutput.visitedEdgeExitCoords);
         }
 
         const PositionData startPositionToNorth = {
@@ -261,10 +261,10 @@ void part2(const Input &input) {
             .dir = North,
         };
 
-        if (!visitedEdgeExitPositions.contains(startPositionToNorth)) {
+        if (!visitedEdgeExitCoords.contains(startPositionToNorth.coord)) {
             auto energizeOutput = _bfs(startPositionToNorth, input);
             maxEnergizedTiles = max(maxEnergizedTiles, energizeOutput.visitedCoords.size());
-            visitedEdgeExitPositions.merge(energizeOutput.visitedEdgeExitPositions);
+            visitedEdgeExitCoords.merge(energizeOutput.visitedEdgeExitCoords);
         }
     }
 
