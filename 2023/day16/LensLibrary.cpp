@@ -50,7 +50,6 @@ struct Input {
 const Input _parseInput(istream& inputFile) {
     Input input;
 
-    string step;
     while (!inputFile.eof()) {
         string line;
         getline(inputFile, line);
