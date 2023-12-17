@@ -31,6 +31,10 @@ constexpr auto lcm(std::vector<M> &v) {
     });
 }
 
+inline int positiveModulo(int i, int n) {
+    return (i % n + n) % n;
+}
+
 }  // namespace math
 }  // namespace util
 }  // namespace aoc
