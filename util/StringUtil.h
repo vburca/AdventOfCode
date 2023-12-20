@@ -46,13 +46,14 @@ static inline std::string trimCopy(std::string s) {
     return s;
 }
 
-static inline std::vector<std::string> split(const std::string &s, const char delim) {
+static inline std::vector<std::string> split(const std::string &s, const char delim, const bool trim = false) {
     std::vector<std::string> separatedWords;
     std::stringstream ss(s);
     std::string word;
     while (!ss.eof()) {
         getline(ss, word, delim);
-        separatedWords.push_back(word);
+        word = trim ? trimCopy(word) : word;
+        separatedWords.push_back(trimCopy(word));
     }
 
     return separatedWords;
