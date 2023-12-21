@@ -31,7 +31,7 @@ constexpr auto lcm(std::vector<M> &v) {
     });
 }
 
-inline int positiveModulo(int i, int n) {
+inline int64_t positiveModulo(int64_t i, int64_t n) {
     return (i % n + n) % n;
 }
 
