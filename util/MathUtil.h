@@ -7,8 +7,6 @@
 #include <cstdint>
 #include <functional>
 
-#include <iostream>
-
 namespace aoc {
 namespace util {
 namespace math {
