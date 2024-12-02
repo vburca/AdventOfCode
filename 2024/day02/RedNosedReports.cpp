@@ -2,7 +2,6 @@
 #include "../../util/MathUtil.h"
 
 #include <vector>
-#include <optional>
 
 using namespace std;
 
