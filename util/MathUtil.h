@@ -33,6 +33,11 @@ inline int64_t positiveModulo(int64_t i, int64_t n) {
     return (i % n + n) % n;
 }
 
+template <typename T>
+short int sgn(T val) {
+    return (T(0) < val) - (val < T(0));
+}
+
 }  // namespace math
 }  // namespace util
 }  // namespace aoc
