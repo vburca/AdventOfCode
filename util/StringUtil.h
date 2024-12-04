@@ -76,6 +76,17 @@ static inline std::vector<T> parseDelimSeparatedNumbers(const std::string &s, co
     return numbers;
 }
 
+static inline std::vector<size_t> findAllPositions(const std::string &s, const char ch) {
+    std::vector<size_t> positions;
+    for (size_t i = 0; i < s.size(); ++i) {
+        if (s[i] == ch) {
+            positions.emplace_back(i);
+        }
+    }
+
+    return positions;
+}
+
 }  // namespace string
 }  // namespace util
 }  // namespace aoc
