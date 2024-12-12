@@ -1,9 +1,39 @@
+#pragma once
+
+#include "Types.h"
+
 #include <vector>
 #include <utility>
 
 namespace aoc {
 namespace util {
 namespace graph {
+
+const std::vector<types::coord_t> kCompassDirections8 = {
+    {-1, 0},  // up
+    {-1, 1},  // up-right
+    {0, 1},   // right
+    {1, 1},   // down-right
+    {1, 0},   // down
+    {1, -1},  // down-left
+    {0, -1},  // left
+    {-1, -1}, // up-left
+};
+
+enum kCompass4Orientation {
+    kNorth = 0,
+    kEast,
+    kSouth,
+    kWest,
+    kCount,
+};
+
+const std::vector<types::coord_t> kCompassDirections4 = {
+    {-1, 0},  // up
+    {0, 1},   // right
+    {1, 0},   // down
+    {0, -1},  // left
+};
 
 // Adjacency matrix implementation of Stoer–Wagner min cut algorithm.
 // Running time:
