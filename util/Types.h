@@ -7,6 +7,7 @@ namespace util {
 namespace types {
 
 typedef std::pair<size_t, size_t> coord_t;
+typedef std::pair<uint64_t, uint64_t> coord_big_t;
 typedef std::pair<int64_t, int64_t> coord_signed_t;
 typedef std::pair<float, float> coord_float_t;
 typedef std::pair<double, double> coord_double_t;
