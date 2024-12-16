@@ -9,7 +9,7 @@ namespace aoc {
 namespace util {
 namespace graph {
 
-const std::vector<types::coord_t> kCompassDirections8 = {
+const std::vector<types::coord_signed_t> kCompassDirections8 = {
     {-1, 0},  // up
     {-1, 1},  // up-right
     {0, 1},   // right
@@ -28,7 +28,7 @@ enum kCompass4Orientation {
     kCount,
 };
 
-const std::vector<types::coord_t> kCompassDirections4 = {
+const std::vector<types::coord_signed_t> kCompassDirections4 = {
     {-1, 0},  // up
     {0, 1},   // right
     {1, 0},   // down
