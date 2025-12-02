@@ -89,6 +89,29 @@ static inline std::vector<size_t> findAllPositions(const std::string &s, const c
     return positions;
 }
 
+static inline std::string incrementStringNumber(const std::string &s) {
+    std::string invS = s;
+    std::reverse(invS.begin(), invS.end());
+
+    bool carry = false;
+    size_t i = 0;
+    do {
+        size_t digit = invS[i] - '0';
+        digit += 1;
+        carry = digit > 9;
+        digit = digit % 10;
+        invS[i] = digit + '0';
+        i += 1;
+    } while(i < invS.size() && carry);
+
+    if (carry) {
+        invS += "1";
+    }
+
+    std::reverse(invS.begin(), invS.end());
+    return invS;
+}
+
 }  // namespace string
 }  // namespace util
 }  // namespace aoc
