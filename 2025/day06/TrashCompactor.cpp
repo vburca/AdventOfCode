@@ -51,13 +51,6 @@ void part1(istream& inputFile) {
     cout << grandTotal << endl;
 }
 
-vector<uint64_t> getVerticalNumbers(const vector<uint64_t> &numbers) {
-    vector<uint64_t> verticalNumbers;
-
-
-    return verticalNumbers;
-}
-
 void part2(istream& inputFile) {
     vector<string> numbers;
     vector<char> operators;
