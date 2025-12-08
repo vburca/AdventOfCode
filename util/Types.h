@@ -40,6 +40,20 @@ struct coord3d_signed_t {
     }
 };
 
+struct coord3d_big_t {
+    uint64_t x;
+    uint64_t y;
+    uint64_t z;
+
+    bool operator==(const coord3d_big_t &other) const {
+        return std::tie(x, y, z) == std::tie(other.x, other.y, other.z);
+    }
+
+    bool operator<(const coord3d_big_t &other) const {
+        return std::tie(x, y, z) < std::tie(other.x, other.y, other.z);
+    }
+};
+
 }  // namespace types
 }  // namespace util
 }  // namespace aoc
